@@ -80,27 +80,27 @@
   <button onclick="copyOutput()">COPY</button>
 
   <script>
-    const smallCapsMap = {
-      a: 'ᴀ', b: 'ʙ', c: 'ᴄ', d: 'ᴅ', e: 'ᴇ', f: 'ғ',
-      g: 'ɢ', h: 'ʜ', i: 'ɪ', j: 'ᴊ', k: 'ᴋ', l: 'ʟ',
-      m: 'ᴍ', n: 'ɴ', o: 'ᴏ', p: 'ᴘ', q: 'ǫ', r: 'ʀ',
-      s: 's', t: 'ᴛ', u: 'ᴜ', v: 'ᴠ', w: 'ᴡ', x: 'x',
-      y: 'ʏ', z: 'ᴢ'
-    };
+const smallCapsMap = {
+  a: 'ᴀ', b: 'ʙ', c: 'ᴄ', d: 'ᴅ', e: 'ᴇ', f: 'ғ',
+  g: 'ɢ', h: 'ʜ', i: 'ɪ', j: 'ᴊ', k: 'ᴋ', l: 'ʟ',
+  m: 'ᴍ', n: 'ɴ', o: 'ᴏ', p: 'ᴘ', q: 'ǫ', r: 'ʀ',
+  s: 's', t: 'ᴛ', u: 'ᴜ', v: 'ᴠ', w: 'ᴡ', x: 'x',
+  y: 'ʏ', z: 'ᴢ'
+};
 
-    function convertText() {
-      const input = document.getElementById('input').value;
-      let converted = '';
-      for (let char of input.toLowerCase()) {
-        if (smallCapsMap[char]) {
-          converted += smallCapsMap[char];
-        } else {
-          converted += char;
-        }
-      }
-      document.getElementById('output').textContent = converted;
+function convertText() {
+  const input = document.getElementById('input').value;
+  let converted = '';
+  for (let char of input) {
+    const lower = char.toLowerCase();
+    if (/[a-z]/.test(char) && char === lower && smallCapsMap[lower]) {
+      converted += smallCapsMap[lower];
+    } else {
+      converted += char;
     }
-
+  }
+  document.getElementById('output').textContent = converted;
+}
     function copyOutput() {
       const outputText = document.getElementById('output').textContent;
       navigator.clipboard.writeText(outputText).then(() => {
