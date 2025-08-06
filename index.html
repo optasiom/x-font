@@ -81,7 +81,7 @@
 <body>
   <div class="code-bg"></div>
 
-  <h1> X Font</h1>
+  <h1>X Font</h1>
 
   <input id="input" type="text" placeholder="Type your text..." oninput="convertText()">
 
@@ -102,7 +102,7 @@
       const input = document.getElementById('input').value;
       let converted = '';
       for (let char of input) {
-        if (smallCapsMap[char]) {
+        if (/[a-z]/.test(char) && smallCapsMap[char]) {
           converted += smallCapsMap[char];
         } else {
           converted += char;
