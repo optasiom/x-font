@@ -26,5 +26,5 @@ It features a dark red UI, live character conversion, and a one-click copy funct
 
 1. Clone the repository:
 
-`bash
-git clone https://github.com/yourusername/x-font.git
+```bash
+git clone https://github.com/yourusername/x-font.git```
