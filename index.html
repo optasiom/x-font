@@ -2,119 +2,97 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>X Font - optasiom</title>
+  <title>X Font - optasiom </title>
   <style>
     body {
-      background-color: #0d0d0d;
-      color: #ff0000;
-      font-family: 'Courier New', monospace;
+      background-color: #0a0a0a;
+      color: #ff2c2c;
+      font-family: 'Courier New', Courier, monospace;
+      padding: 40px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
     }
 
     h1 {
-      color: #ff0000;
-      text-shadow: 0 0 10px #ff0000;
-      margin-bottom: 30px;
-    }
-
-    input {
-      background-color: #1a1a1a;
-      border: 1px solid #ff0000;
-      color: #ffffff;
-      padding: 10px;
-      width: 80%;
-      max-width: 600px;
-      font-size: 1.1em;
+      font-size: 3em;
       margin-bottom: 20px;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px #ff0000;
     }
 
-    .output {
-      white-space: pre-wrap;
+    textarea, #output {
+      width: 90%;
+      max-width: 800px;
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 2px solid #ff2c2c;
+      background-color: #1a1a1a;
+      color: #ff2c2c;
       font-size: 1.2em;
-      border: 1px solid #ff0000;
-      padding: 10px;
-      width: 80%;
-      max-width: 600px;
-      min-height: 100px;
-      background: #111;
-      color: #fff;
+      border-radius: 10px;
+      resize: vertical;
+    }
+
+    #output {
+      min-height: 120px;
+      white-space: pre-wrap;
     }
 
     button {
-      background-color: #ff0000;
-      color: black;
-      border: none;
       padding: 10px 20px;
-      font-weight: bold;
+      font-size: 1em;
+      background-color: transparent;
+      border: 2px solid #ff2c2c;
+      color: #ff2c2c;
       cursor: pointer;
-      box-shadow: 0 0 10px #ff0000;
-      transition: 0.3s;
-      margin-top: 10px;
+      transition: background 0.3s, color 0.3s;
+      margin: 5px;
+      border-radius: 6px;
     }
 
     button:hover {
-      background-color: #990000;
+      background-color: #ff2c2c;
+      color: black;
     }
 
-    .code-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: -1;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(255, 0, 0, 0.05),
-        rgba(255, 0, 0, 0.05) 1px,
-        transparent 1px,
-        transparent 2px
-      );
+    .glow {
+      box-shadow: 0 0 20px #ff0000;
     }
   </style>
 </head>
 <body>
-  <div class="code-bg"></div>
-
   <h1>X Font</h1>
-
-  <input id="input" type="text" placeholder="Type your text..." oninput="convertText()">
-
-  <div class="output" id="output"></div>
-
-  <button onclick="copyOutput()">COPY</button>
+  <textarea id="input" rows="5" placeholder="Type your text here..." oninput="convertText()"></textarea>
+  <div id="output" class="glow"></div>
+  <button onclick="copyOutput()">Copy</button>
 
   <script>
     const smallCapsMap = {
-      a: 'ᴀ', b: 'ʙ', c: 'ᴄ', d: 'ᴅ', e: 'ᴇ', f: 'ғ',
-      g: 'ɢ', h: 'ʜ', i: 'ɪ', j: 'ᴊ', k: 'ᴋ', l: 'ʟ',
-      m: 'ᴍ', n: 'ɴ', o: 'ᴏ', p: 'ᴘ', q: 'ǫ', r: 'ʀ',
-      s: 's', t: 'ᴛ', u: 'ᴜ', v: 'ᴠ', w: 'ᴡ', x: 'x',
-      y: 'ʏ', z: 'ᴢ'
+      a: 'ᴀ', b: 'ʙ', c: 'ᴄ', d: 'ᴅ', e: 'ᴇ',
+      f: 'ғ', g: 'ɢ', h: 'ʜ', i: 'ɪ', j: 'ᴊ',
+      k: 'ᴋ', l: 'ʟ', m: 'ᴍ', n: 'ɴ', o: 'ᴏ',
+      p: 'ᴘ', q: 'ǫ', r: 'ʀ', s: 's', t: 'ᴛ',
+      u: 'ᴜ', v: 'ᴠ', w: 'ᴡ', x: 'x', y: 'ʏ', z: 'ᴢ'
     };
 
     function convertText() {
       const input = document.getElementById('input').value;
-      let converted = '';
+      let result = '';
       for (let char of input) {
-        if (/[a-z]/.test(char) && smallCapsMap[char]) {
-          converted += smallCapsMap[char];
+        if (char >= 'a' && char <= 'z') {
+          result += smallCapsMap[char] || char;
         } else {
-          converted += char;
+          result += char;
         }
       }
-      document.getElementById('output').textContent = converted;
+      document.getElementById('output').textContent = result;
     }
 
     function copyOutput() {
-      const outputText = document.getElementById('output').textContent;
-      navigator.clipboard.writeText(outputText).then(() => {
-        alert("Text copied to clipboard!");
+      const text = document.getElementById('output').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Text copied!');
       });
     }
   </script>
