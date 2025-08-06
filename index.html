@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ᴛᴇxᴛ ᴄᴏɴᴠᴇʀᴛᴇʀ - x</title>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #ff0000;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      margin: 0;
+    }
+    h1 {
+      color: #ff0000;
+      text-shadow: 0 0 10px #ff0000;
+      margin-bottom: 30px;
+    }
+    textarea, input {
+      background-color: #1a1a1a;
+      border: 1px solid #ff0000;
+      color: #fff;
+      padding: 10px;
+      width: 80%;
+      max-width: 600px;
+      font-size: 1.1em;
+      margin-bottom: 20px;
+      resize: none;
+    }
+    .output {
+      white-space: pre-wrap;
+      font-size: 1.2em;
+      border: 1px solid #ff0000;
+      padding: 10px;
+      width: 80%;
+      max-width: 600px;
+      min-height: 100px;
+      background: #111;
+    }
+    button {
+      background-color: #ff0000;
+      color: black;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff0000;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #990000;
+    }
+    .code-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 0, 0, 0.05),
+        rgba(255, 0, 0, 0.05) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+    }
+  </style>
+</head>
+<body>
+  <div class="code-bg"></div>
+  <h1> ᴛᴇxᴛ ᴄᴏɴᴠᴇʀᴛᴇʀ</h1>
+  <input id="input" type="text" placeholder="Enter your text here..." oninput="convertText()">
+  <div class="output" id="output"></div>
+  <button onclick="copyOutput()">COPY</button>
+
+  <script>
+    const smallCapsMap = {
+      a: 'ᴀ', b: 'ʙ', c: 'ᴄ', d: 'ᴅ', e: 'ᴇ', f: 'ғ',
+      g: 'ɢ', h: 'ʜ', i: 'ɪ', j: 'ᴊ', k: 'ᴋ', l: 'ʟ',
+      m: 'ᴍ', n: 'ɴ', o: 'ᴏ', p: 'ᴘ', q: 'ǫ', r: 'ʀ',
+      s: 's', t: 'ᴛ', u: 'ᴜ', v: 'ᴠ', w: 'ᴡ', x: 'x',
+      y: 'ʏ', z: 'ᴢ'
+    };
+
+    function convertText() {
+      const input = document.getElementById('input').value;
+      let converted = '';
+      for (let char of input.toLowerCase()) {
+        if (smallCapsMap[char]) {
+          converted += smallCapsMap[char];
+        } else {
+          converted += char;
+        }
+      }
+      document.getElementById('output').textContent = converted;
+    }
+
+    function copyOutput() {
+      const outputText = document.getElementById('output').textContent;
+      navigator.clipboard.writeText(outputText).then(() => {
+        alert("Copied to clipboard!");
+      });
+    }
+  </script>
+</body>
+</html>
